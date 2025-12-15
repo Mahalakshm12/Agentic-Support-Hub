@@ -1,14 +1,19 @@
 import streamlit as st
 from master_agent import SmartSupportMaster
 import time
+import os
 
-# Page config
-st.set_page_config(
-    page_title="🔥 Agentic AI Hub", 
-    page_icon="🔥",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
+# ✅ FIX 1: Force correct working directory for ChromaDB
+if not os.path.exists("data"):
+    os.makedirs("data", exist_ok=True)
+
+# ✅ FIX 2: Set absolute path for Streamlit Cloud/Deploy
+try:
+    os.chdir(os.path.dirname(os.path.abspath(__file__)))
+except:
+    os.chdir("./")  # Fallback
+
+st.set_page_config(page_title="🔥 Agentic AI Hub", page_icon="🔥", layout="wide", initial_sidebar_state="expanded")
 
 # CYBERPUNK WHITE CSS
 st.markdown("""
@@ -19,7 +24,7 @@ st.markdown("""
 .subtitle { font-family: 'Orbitron', monospace !important; font-size: 1.4rem !important; color: #ffffff !important; text-align: center; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
 .neon-rag { background: linear-gradient(45deg, #ff00ff, #aa00ff); color: #ffffff !important; padding: 0.5rem 1.2rem !important; border-radius: 50px !important; font-weight: 700 !important; font-family: 'Orbitron', monospace !important; box-shadow: 0 0 20px rgba(255,0,255,0.5); border: 2px solid #ff00ff; }
 .neon-search { background: linear-gradient(45deg, #00ff88, #00cc66); color: #ffffff !important; padding: 0.5rem 1.2rem !important; border-radius: 50px !important; font-weight: 700 !important; font-family: 'Orbitron', monospace !important; box-shadow: 0 0 20px rgba(0,255,136,0.5); border: 2px solid #00ff88; }
-.stChatMessage { background: rgba(20,20,20,0.95) !important; border: 1px solid #444 !important; border-radius: 25px !important; color: #ffffff !important; }
+.stChatMessage { background: rgba(20,20,20,0.95) !important; border: 1px solid #444 !important; border-radius: 25px !important; color: #ffffff !important; backdrop-filter: blur(10px) !important; }
 .stMarkdown { color: #ffffff !important; }
 .stProgress > div > div > div > div { background: linear-gradient(90deg, #00ff88, #00d4ff) !important; }
 section[data-testid="stSidebar"] { background: linear-gradient(180deg, #1a0033 0%, #0a0a0a 100%) !important; border-right: 2px solid #ffffff !important; }
@@ -36,49 +41,30 @@ def get_master():
 
 master = get_master()
 
-# Header
+# ✅ FIX 3: Debug info (remove after testing)
+st.sidebar.markdown("**📁 DEBUG:** " + os.getcwd())
+st.sidebar.markdown("**📄 KB File:** " + ("✅ EXISTS" if os.path.exists("data/knowledge_base.txt") else "❌ MISSING"))
+
+# Header + Stats (unchanged)
 st.markdown("""
-<div style='background: linear-gradient(90deg, rgba(255,255,255,0.1) 0%, rgba(0,255,136,0.1) 50%, rgba(0,212,255,0.1) 100%); 
-           padding: 2rem; border-radius: 20px; border: 2px solid #ffffff;'>
+<div style='background: linear-gradient(90deg, rgba(255,255,255,0.1) 0%, rgba(0,255,136,0.1) 50%, rgba(0,212,255,0.1) 100%); padding: 2rem; border-radius: 20px; border: 2px solid #ffffff;'>
     <h1 class="main-title">🔥 AGENTIC AI HUB</h1>
     <p class="subtitle">Neural Router | RAG + Live Search | Infinite Intelligence</p>
 </div>
 """, unsafe_allow_html=True)
 
-# Stats
 col1, col2, col3 = st.columns(3)
-with col1:
-    st.markdown("""
-    <div style='background: rgba(255,0,255,0.15); padding: 1.5rem; border-radius: 15px; border: 2px solid #ffffff; text-align: center; color: #ffffff;'>
-        <h3 style='color: #ffffff !important; font-family: Orbitron;'>📚 KB NODES</h3>
-        <h1 style='color: #ffffff !important; font-size: 2.5rem;'>27</h1>
-    </div>
-    """, unsafe_allow_html=True)
-with col2:
-    st.markdown("""
-    <div style='background: rgba(0,255,136,0.15); padding: 1.5rem; border-radius: 15px; border: 2px solid #ffffff; text-align: center; color: #ffffff;'>
-        <h3 style='color: #ffffff !important; font-family: Orbitron;'>🌐 WEB NODES</h3>
-        <h1 style='color: #ffffff !important; font-size: 2.5rem;'>LIVE</h1>
-    </div>
-    """, unsafe_allow_html=True)
-with col3:
-    st.markdown("""
-    <div style='background: rgba(0,212,255,0.15); padding: 1.5rem; border-radius: 15px; border: 2px solid #ffffff; text-align: center; color: #ffffff;'>
-        <h3 style='color: #ffffff !important; font-family: Orbitron;'>⚡ LATENCY</h3>
-        <h1 style='color: #ffffff !important; font-size: 2.5rem;'><1s</h1>
-    </div>
-    """, unsafe_allow_html=True)
+with col1: st.markdown('<div style="background: rgba(255,0,255,0.15); padding: 1.5rem; border-radius: 15px; border: 2px solid #ffffff; text-align: center; color: #ffffff;"><h3 style="color: #ffffff !important; font-family: Orbitron;">📚 KB NODES</h3><h1 style="color: #ffffff !important; font-size: 2.5rem;">27</h1></div>', unsafe_allow_html=True)
+with col2: st.markdown('<div style="background: rgba(0,255,136,0.15); padding: 1.5rem; border-radius: 15px; border: 2px solid #ffffff; text-align: center; color: #ffffff;"><h3 style="color: #ffffff !important; font-family: Orbitron;">🌐 WEB NODES</h3><h1 style="color: #ffffff !important; font-size: 2.5rem;">LIVE</h1></div>', unsafe_allow_html=True)
+with col3: st.markdown('<div style="background: rgba(0,212,255,0.15); padding: 1.5rem; border-radius: 15px; border: 2px solid #ffffff; text-align: center; color: #ffffff;"><h3 style="color: #ffffff !important; font-family: Orbitron;">⚡ LATENCY</h3><h1 style="color: #ffffff !important; font-size: 2.5rem;"><1s</h1></div>', unsafe_allow_html=True)
 
 st.markdown("---")
 st.markdown("<h2 style='color: #ffffff !important; text-align: center; font-family: Orbitron;'>💬 NEURAL CHAT</h2>", unsafe_allow_html=True)
 
 # Chat history
 if "messages" not in st.session_state:
-    st.session_state.messages = [
-        {"role": "assistant", "content": "🔥 Neural Core Online\n\nAsk me company support OR world knowledge. I route perfectly."}
-    ]
+    st.session_state.messages = [{"role": "assistant", "content": "🔥 Neural Core Online\n\nAsk me company support OR world knowledge. I route perfectly.\n\n**Test:** 'how to reset password'"}]
 
-# Display messages
 for message in st.session_state.messages:
     if message["role"] == "user":
         with st.chat_message("user"):
@@ -115,35 +101,30 @@ if prompt := st.chat_input("🔍 Enter query (SmartSupport KB or World Search)..
         
         try:
             response = master.route_and_execute(prompt)
-            # ✅ FIXED: Safe None handling
-            response_str = str(response) if response is not None else "No response from agent"
+            response_str = str(response) if response is not None else "❌ Agent returned None - Check master_agent.py"
             progress.progress(1.0)
             status.markdown("**✅ ONLINE**")
-            time.sleep(0.5)
         except Exception as e:
-            response_str = f"❌ SYSTEM ERROR: {str(e)}"
+            response_str = f"❌ ERROR: {str(e)}\n\n**Debug:** Check if data/knowledge_base.txt exists"
         
         progress.empty()
         status.empty()
         
-        # ✅ FIXED: Safe string checking
-        if response_str and "[RAG Agent]" in response_str:
+        if "[RAG Agent]" in response_str:
             st.markdown('<span class="neon-rag">📚 RAG AGENT</span>', unsafe_allow_html=True)
-        elif response_str and "[Search Agent]" in response_str:
+        elif "[Search Agent]" in response_str:
             st.markdown('<span class="neon-search">🌐 SEARCH AGENT</span>', unsafe_allow_html=True)
         st.markdown(response_str)
 
     st.session_state.messages.append({"role": "assistant", "content": response_str})
 
-# Sidebar
+# Sidebar (unchanged)
 with st.sidebar:
     st.markdown("<h2 style='color: #ffffff !important; font-family: Orbitron;'>🤖 AI CORE</h2>", unsafe_allow_html=True)
-    
-    if st.button("💥 RESET CHAT", use_container_width=True):
+    if st.button("💥 RESET CHAT", use_container_width=True): 
         st.session_state.messages = []
         st.rerun()
     
-    st.markdown("---")
     st.markdown("""
     <div style='color: #ffffff !important; font-family: Orbitron;'>
         <h3 style='color: #ffffff !important;'>🧠 RAG Agent</h3>
@@ -156,6 +137,6 @@ with st.sidebar:
 st.markdown("""
 <div style='text-align: center; padding: 2rem; color: #ffffff !important; font-family: Orbitron;'>
     <h3 style='color: #ffffff !important;'>Powered by 🔥 Neural Routing</h3>
-    <p style='color: #ffffff !important;'>LangChain + Groq + Streamlit | 2025</p>
 </div>
 """, unsafe_allow_html=True)
+
