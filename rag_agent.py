@@ -18,7 +18,16 @@ class RAGAgent:
     
     def execute(self, query: str) -> str:
         try:
-            chroma_path = os.path.abspath("./data/chroma_db")
+            # ✅ FIX 1: ABSOLUTE PATH - Works in Streamlit + Terminal
+            chroma_path = os.path.join(os.path.dirname(__file__), "data", "chroma_db")
+            chroma_path = os.path.abspath(chroma_path)
+            
+            print(f"🔍 Loading ChromaDB from: {chroma_path}")
+            
+            # ✅ FIX 2: Check if ChromaDB exists
+            if not os.path.exists(chroma_path):
+                return "❌ ChromaDB not found. Run `python init_db.py` first. [RAG Agent]"
+            
             vectorstore = Chroma(
                 persist_directory=chroma_path,
                 collection_name="customer_support_kb",
@@ -27,10 +36,12 @@ class RAGAgent:
             
             # Retrieve relevant KB chunks
             docs = vectorstore.similarity_search(query, k=3)
-            context = "\n\n".join([d.page_content for d in docs if len(d.page_content.strip()) > 30])
+            context_docs = [d.page_content for d in docs if len(d.page_content.strip()) > 30]
+            context = "\n\n".join(context_docs)
+            
+            print(f"📚 Found {len(context_docs)} relevant docs")
             
             if context.strip():
-                # ✅ PERFECT RAG PROMPT - Uses retrieved context ONLY
                 prompt = f"""SMARTSUPPORT CUSTOMER SUPPORT SPECIALIST
 
 KNOWLEDGE BASE CONTEXT:
@@ -42,13 +53,17 @@ INSTRUCTIONS:
 1. Answer using ONLY the KB context above
 2. Be SPECIFIC: Include URLs, exact steps, timelines, contact info
 3. Professional, step-by-step guidance
-4. If info missing: "Please contact support@smartsupport.com for assistance"
+4. If info missing: "Please contact [support@smartsupport.com](mailto:support@smartsupport.com) for assistance"
 5. ALWAYS end response with: [RAG Agent]
 
 PROVIDE STEP-BY-STEP SOLUTION:"""
                 
-                return self.llm.invoke(prompt).content
+                response = self.llm.invoke(prompt).content
+                return response.strip() + " [RAG Agent]"
+            else:
+                return "No relevant information found in knowledge base. Please contact [support@smartsupport.com](mailto:support@smartsupport.com) [RAG Agent]"
         
         except Exception as e:
             print(f"RAG Agent Error: {e}")
-        return None
+            return f"Error accessing knowledge base: {str(e)}. Please contact support. [RAG Agent]"
+
