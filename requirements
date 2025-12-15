@@ -1,0 +1,14 @@
+langchain
+langchain-groq
+langchain-chroma
+langchain-huggingface
+langchain-community
+chromadb
+huggingface-hub
+sentence-transformers
+groq
+ddgs
+python-dotenv
+chroma-hnswlib
+numpy
+pydantic
