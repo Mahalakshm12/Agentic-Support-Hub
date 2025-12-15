@@ -1,0 +1,97 @@
+CUSTOMER SUPPORT KNOWLEDGE BASE - COMPLETE GUIDE:
+
+=== ACCOUNT MANAGEMENT ===
+Password Reset:
+- Visit https://app.smartsupport.com/reset-password
+- Enter registered email → Check inbox/spam (24hr expiry)
+- No email received? Check spam/junk → Still no? Contact support@smartsupport.com
+
+2FA Setup:
+- Account > Security > Enable 2FA
+- Scan QR code with Google Authenticator/Authy
+- Backup codes: Save 10 codes securely (one-time use)
+
+Account Deletion:
+- Account > Settings > Delete Account (30-day recovery)
+- All data permanently deleted after 30 days
+
+Email Updates:
+- Account > Notifications → Toggle email preferences
+- Unsubscribe: Footer of any email → "Manage Preferences"
+
+=== PAYMENTS & BILLING ===
+Payment Failed:
+- Update card: Account > Billing > Payment Methods
+- Retry after 24hrs if declined (bank hold)
+- Supported: Visa, MC, Amex, Discover, Apple Pay, Google Pay
+
+Subscription Management:
+- Cancel anytime: Account > Billing > Cancel (immediate effect)
+- Upgrade/downgrade: Same page → Changes at billing cycle end
+- Refund policy: 7 days for annual plans
+
+Invoice History:
+- Account > Billing > Invoices (PDF download)
+- Tax receipts available for 7 years
+
+=== RETURNS & WARRANTY ===
+Return Policy:
+- 30 days for unopened items, original packaging
+- 14 days for damaged/defective (photos required)
+- Process: Orders > Request Return > Print prepaid label (free)
+
+Warranty Claims:
+- Lifetime warranty on hardware defects
+- Submit: Support > Warranty > Upload photos + receipt
+- Replacement ships within 48hrs
+
+Exchange Policy:
+- Same item, different size/color: Free exchange
+- Different item: Treated as return + new purchase
+
+=== SHIPPING & DELIVERY ===
+Tracking Orders:
+- Orders > Track Order (real-time updates)
+- Standard: 3-5 days, Express: 1-2 days
+- Delays? Check "Shipping Updates" email
+
+International Shipping:
+- 50+ countries, duties paid by customer
+- Track via local carrier (DHL/FedEx/UPS)
+
+Delivery Issues:
+- Wrong address? Contact within 24hrs
+- Stolen package? File police report + claim form
+
+=== PRODUCT SUPPORT ===
+Software Updates:
+- Auto-update enabled by default
+- Manual: App > Settings > Check for Updates
+- Changelog: https://smartsupport.com/changelog
+
+Troubleshooting:
+- App crashes: Clear cache → Account > Advanced > Clear Data
+- Slow performance: Close background apps + restart
+- Connection issues: Toggle WiFi/Cellular → VPN off
+
+API Access:
+- Developer? https://api.smartsupport.com/docs
+- Rate limits: 1000 calls/hour (Enterprise: unlimited)
+
+=== CONTACT & ESCALATION ===
+Live Chat: 24/7 → Bottom-right chat bubble
+Phone: +1-800-SUPPORT (9AM-6PM EST)
+Email: support@smartsupport.com (48hr response)
+
+Priority Support:
+- Enterprise accounts: Dedicated rep + 2hr response
+- Request upgrade: Account > Support > Priority Request
+
+=== LEGAL & PRIVACY ===
+Privacy Policy: https://smartsupport.com/privacy
+Terms of Service: https://smartsupport.com/terms
+GDPR Compliance: EU residents → Data export available
+
+Data Export:
+- Account > Privacy > Download My Data (JSON format)
+- Delete all data: Account > Privacy > Erase Everything
